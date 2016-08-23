@@ -184,7 +184,7 @@ embedded API. So anywhere on the `Yesod` source-code we can reference it in a
 >   parseRoute t = Just (EmbeddedAPIR t)
 
 We also seem to need this thing. I just copied my way through `yesod-static`
-and friends, since they aren't documented.
+and friends, since I couldn't find documentation.
 
 (Well, there's a chapter in the book. But I don't want to read a book this
 morning. As constructive criticism of this, [here's `Express.js` documentation
