@@ -1,0 +1,30 @@
+name: yesod-servant-example
+version: '0.1.0.0'
+author: yamadapc
+maintainer: tacla.yamada@gmail.com
+license: MIT
+
+extra-source-files:
+- ChangeLog.md
+
+dependencies:
+- base >=4.8 && <4.9
+- base-compat
+- yesod
+- yesod-core
+- servant
+- servant-server
+- wai
+- warp
+- text
+
+library:
+  source-dirs:
+  - lib
+
+executables:
+  yesod-servant-example:
+    main: Main.hs
+    source-dirs:
+    - bin
+    dependencies: yesod-servant-example
