@@ -180,7 +180,7 @@ instance ParseRoute EmbeddedAPI where
   parseRoute t = Just (EmbeddedAPIR t)
 ```
 
-We also seem to need this thing. I just copied my way through `yesod-static` and friends, since they aren't documented.
+We also seem to need this thing. I just copied my way through `yesod-static` and friends, since I couldn't find documentation.
 
 (Well, there's a chapter in the book. But I don't want to read a book this morning. As constructive criticism of this, [here's `Express.js` documentation on the same functionality at 6 lines and with 2 examples.](http://expressjs.com/en/4x/api.html#router))
 

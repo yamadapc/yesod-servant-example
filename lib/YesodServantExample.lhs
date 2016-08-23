@@ -1,4 +1,5 @@
-# Yesod & Servant Embedding Example
+Yesod & Servant Embedding Example
+=================================
 This is an example of how you can embed a
 [Servant API](https://github.com/haskell-servant/servant/)
 within an
@@ -13,7 +14,8 @@ very easy for me personally and Yesod had an example cited on these articles:
     - Which in turn pointed to:
         - [yesod-static](https://hackage.haskell.org/package/yesod-static-1.5.0.3/docs/src/Yesod-EmbeddedStatic-Internal.html#EmbeddedStatic)
 
-## Some language extensions
+Some language extensions
+------------------------
 
 I've been trying to not use `LANGUAGE` pragmas inline, in the same way one does
 not keep their front-end asset pipeline configuration inline, through using the
@@ -106,7 +108,8 @@ instances, like `persistent` `Key User` type of things.
 
 - [24 Days of GHC Extensions](https://ocharles.org.uk/blog/posts/2014-12-08-type-operators.html)
 
-## The module
+The module
+------------------------
 
 We import some stuff from a couple of packages, thankfully not that many imports.
 
@@ -117,7 +120,8 @@ We import some stuff from a couple of packages, thankfully not that many imports
 > import           "yesod" Yesod
 > import           "yesod-core" Yesod.Core.Types
 
-## The Servant bits
+The Servant bits
+------------------------
 
 Here's the type for a servant API that should read as, for the route "items",
 accept `GET` requests with `Content-Type: application/json` responding with
@@ -152,7 +156,8 @@ level. It's "documented"
 > appAPIProxy :: Proxy AppAPI
 > appAPIProxy = Proxy
 
-## The Servant Yesod Subsite bits
+The Servant Yesod Subsite bits
+------------------------
 
 To embed the servant API as an `yesod` subsite, we need a data-type for the
 state to embed. This is just a mock, so I'm just wrapping the
@@ -201,7 +206,8 @@ could be in a package.
 >       site = ysreGetSub master
 >       resp = eapiApplication site req
 
-## The Yesod Application
+The Yesod Application
+------------------------
 
 Now comes the standard Yesod stuff, which has plenty of documentation. We
 define a type for our Application state, which in this case will just contain
@@ -243,7 +249,8 @@ how you could use that `EmbeddedAPIR` constructors.
 >   <a href=@{itemsApiRoute}>@{itemsApiRoute}
 > |]
 
-## The entry-point
+The entry-point
+------------------------
 
 And finally comes the entry-point, which just takes the port and uses:
 
