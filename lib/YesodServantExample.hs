@@ -16,6 +16,27 @@ import           "servant-server" Servant          hiding (Handler)
 import           "yesod" Yesod
 import           "yesod-core" Yesod.Core.Types
 
+-- * A servant API
+
+type AppAPI = "items" :> Get '[JSON] Value
+
+appAPIServerMock :: Server AppAPI
+appAPIServerMock = return $ toJSON [ object [ "id" .= (1 :: Int)
+                                            , "name" .= ("one" :: Text)
+                                            ]
+                                   , object [ "id" .= (2 :: Int)
+                                            , "name" .= ("two" :: Text)
+                                            ]
+                                   , object [ "id" .= (3 :: Int)
+                                            , "name" .= ("three" :: Text)
+                                            ]
+                                   ]
+
+appAPIProxy :: Proxy AppAPI
+appAPIProxy = Proxy
+
+-- * The API state to embed
+
 data EmbeddedAPI = EmbeddedAPI { eapiApplication :: Application
                                }
 
@@ -34,6 +55,8 @@ instance Yesod master => YesodSubDispatch EmbeddedAPI (HandlerT master IO) where
       site = ysreGetSub master
       resp = eapiApplication site req
 
+-- * The Yesod Application
+
 data App = App { appAPI :: EmbeddedAPI
                }
 
@@ -44,18 +67,19 @@ mkYesod "App" [parseRoutes|
 
 instance Yesod App
 
-type AppAPI = "items" :> Get '[JSON] Text
-
-appAPIServer :: Server AppAPI
-appAPIServer = return "Hello there"
-
 getHomeR :: Handler Html
-getHomeR = undefined
+getHomeR = do
+    let itemsApiRoute = SubsiteR (EmbeddedAPIR (["items"], []))
+    defaultLayout $ [whamlet|
+<h1>Hello there!
+<p>
+  Try testing our items API at
+  <a href=@{itemsApiRoute}>@{itemsApiRoute}
+|]
 
-appAPIProxy :: Proxy AppAPI
-appAPIProxy = Proxy
+-- * The entry-point
 
 run :: Int -> IO ()
 run port = do
-    let api = serve appAPIProxy appAPIServer
+    let api = serve appAPIProxy appAPIServerMock
     warp port (App (EmbeddedAPI api))
