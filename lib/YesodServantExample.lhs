@@ -2,7 +2,7 @@ Yesod & Servant Embedding Example
 =================================
 This is an example of how you can embed a
 [Servant API](https://github.com/haskell-servant/servant/)
-within an
+within a
 [Yesod](http://www.yesodweb.com) application.
 
 It's currently live at [yesod-servant-example.herokuapp.com/](https://yesod-servant-example.herokuapp.com/)
